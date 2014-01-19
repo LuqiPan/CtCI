@@ -79,9 +79,58 @@ public class ChapterOne {
     }
 
     //=======================================================
+    //1.4 Replace space with "%20"
+
+    public static char[] replaceSpace(char[] chars) {
+        int length = chars.length;
+        //two pointer
+        int i = 0;
+        int pos = 0;
+
+        //copy the char array over;
+        String string = new String(chars);
+        while (i < length) {
+            if (string.charAt(pos) == ' '){
+                chars[i++] = '%';
+                chars[i++] = '2';
+                chars[i++] = '0';
+            }
+            else {
+                chars[i++] = string.charAt(pos);
+            }
+            pos++;
+        }
+
+        return chars;
+    }
+
+    //-------------------------------------------------------
+
+    public static void replaceSpace2(char[] chars, int length) {
+        //no need to get the count for spaces
+        //int spaces = (newL - length) / 2;
+
+        //get the array length
+        int newL = chars.length;
+
+        for (int i = length - 1; i >= 0; i--) {
+            if (chars[i] == ' ') {
+                chars[newL - 1] = '0';
+                chars[newL - 2] = '2';
+                chars[newL - 3] = '%';
+                newL = newL - 3;
+            } else {
+                chars[--newL] = chars[i];
+            }
+        }
+    }
+                
+    //=======================================================
 
     public static void main(String[] args) {
-        System.out.println(ChapterOne.isPerm2("abc", "bac"));
+        char[] str = "Mr J S    ".toCharArray();
+        ChapterOne.replaceSpace2(str, 6);
+        System.out.println(new String(str));
     }
 
 }

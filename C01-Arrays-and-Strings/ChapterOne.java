@@ -234,10 +234,23 @@ public class ChapterOne {
     }
 
     //=======================================================
+    //1.8 is rotation of another string
 
+    public static boolean isRotation(String s1, String s2) {
+        if (s1.length() != s2.length()) return false;
+
+        String s = s1 + s1;
+        return s.contains(s2);
+    }
+
+    public static void test1_8() {
+        System.out.println(isRotation("waterbottle", "erbottlewat"));
+    }
+
+    //=======================================================
 
     public static void main(String[] args) {
-        test1_7();
+        test1_8();
     }
 
 }

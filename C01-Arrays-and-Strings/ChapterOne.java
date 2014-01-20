@@ -190,9 +190,54 @@ public class ChapterOne {
     }
 
     //=======================================================
+    //1.7 set zeroes
+    public static void zeroes(int[][] matrix, int m, int n) {
+        boolean[] rows = new boolean[m];
+        boolean[] cols = new boolean[n];
+
+        // First pass: find zero rows and cols
+        for ( int i = 0 ; i < m ; i++ ) { 
+            for ( int j = 0 ; j < n ; j++ ) {
+                if (matrix[i][j] == 0) {
+                    rows[i] = true;
+                    cols[j] = true;
+                }
+            }
+        }
+
+        // Second pass: set corresponding entries to zero
+        for ( int i = 0 ; i < m ; i++ ) { 
+            for ( int j = 0 ; j < n ; j++ ) {
+                if (rows[i] || cols[j]) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    public static void test1_7() {
+        int[][] matrix = new int[][] {
+            {1, 2, 3},
+            {4, 0, 6},
+            {7, 8, 0},
+            {1, 2, 3}
+        };
+        int m = 4;
+        int n = 3;
+        zeroes(matrix, m, n);
+
+        for (int i = 0 ; i < m ; i++) {
+            for (int j = 0 ; j < n ; j++) 
+                System.out.format("%d",matrix[i][j]);            
+            System.out.println();
+        }
+    }
+
+    //=======================================================
+
 
     public static void main(String[] args) {
-        test1_6();
+        test1_7();
     }
 
 }

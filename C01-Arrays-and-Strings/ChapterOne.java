@@ -150,9 +150,49 @@ public class ChapterOne {
     }
 
     //=======================================================
+    //1.6 Rotate N by N matrix
+
+    public static void rotateMatrix(int[][] matrix, int n) {
+        for (int i = 0; i < n / 2; i++) {
+            int cells = n - 2 * i - 1;
+            for (int j = i; j < (i + cells); j++) {
+                int max = i + cells;
+                int tmp = matrix[i][j];
+
+                matrix[i][j] = matrix[j][max];
+                matrix[j][max] = matrix[max][max - j + i];
+                matrix[max][max - j + i] = matrix[max - j + i][i];
+                matrix[max - j + i][i] = tmp;
+            }
+        }
+    }
+
+    public static void test1_6() {
+        int[][] m = new int[][]{
+            {1, 2, 3, 4, 5},
+            {6, 7, 8, 9, 10},
+            {11, 12, 13, 14, 15},
+            {16, 17, 18, 19, 20},
+            {21, 22, 23, 24, 25}
+        };
+        int n = 5;
+        for (int i = 0 ; i < n ; i++) {
+            for (int j = 0 ; j < n ; j++) 
+                System.out.format("%02d",m[i][j]);            
+            System.out.println();
+        }
+        ChapterOne.rotateMatrix(m, n);
+        for (int i = 0 ; i < n ; i++) {
+            for (int j = 0 ; j < n ; j++) 
+                System.out.format("%02d",m[i][j]);            
+            System.out.println();
+        }
+    }
+
+    //=======================================================
 
     public static void main(String[] args) {
-        System.out.println(ChapterOne.compress("abcd"));
+        test1_6();
     }
 
 }

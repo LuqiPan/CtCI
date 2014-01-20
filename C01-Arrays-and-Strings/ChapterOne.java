@@ -127,10 +127,32 @@ public class ChapterOne {
                 
     //=======================================================
 
+    public static String compress(String str) {
+        //Use StringBuffer
+        StringBuffer sb = new StringBuffer();
+
+        int i = 0;
+        while (i < str.length()) {
+            char c = str.charAt(i);
+            Integer count = 0;
+
+            while (i < str.length() && str.charAt(i) == c) {
+                i++;
+                count++;
+            }
+            sb.append(c + count.toString());
+        }
+
+        String result = sb.toString();
+
+        //Determine the length at last
+        return (result.length() < str.length()) ? result : str;
+    }
+
+    //=======================================================
+
     public static void main(String[] args) {
-        char[] str = "Mr J S    ".toCharArray();
-        ChapterOne.replaceSpace2(str, 6);
-        System.out.println(new String(str));
+        System.out.println(ChapterOne.compress("abcd"));
     }
 
 }

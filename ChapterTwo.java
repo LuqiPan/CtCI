@@ -80,4 +80,53 @@ public class ChapterTwo {
         n.next = n.next.next;
         return true;
     }
+
+    //-------------------------------------------------------
+    //2.4 Partition linked list
+
+    public static LinkedListNode partition(LinkedListNode n, int x) {
+        if (n == null) return false;
+        LinkedListNode less = null;
+        LinkedListNode lessHead = null;
+        LinkedListNode greater = null;
+        LinkedListNode greaterHead = null;
+
+        while (n != null) {
+            // partition around x
+            if (n.data < x) {
+                // first element of less list
+                if (less == null) {
+                    less = n;
+                    lessHead = n;
+                } else {
+                    // append the element
+                    less.next = n;
+                    less = n;
+                }
+            } else {
+                // first element of greater list
+                if (greater == null) {
+                    greater = n;
+                    greaterHead = n;
+                } else {
+                    // append the element
+                    greater.next = n;
+                    greater = n;
+                }
+            }
+            n = n.next;
+        }
+
+        if (lessHead == null) {
+            // No elements in less partition
+            return greaterHead;
+        }
+
+        // append greater to less
+        less.next = greaterHead;
+        // make the last element's next null
+        greater.next = null;
+        // return the head
+        return lessHead;
+    }
 }

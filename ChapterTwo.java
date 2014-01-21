@@ -1,6 +1,6 @@
 import java.io.*;
 
-public Class ChapterTwo() {
+public class ChapterTwo {
     //Chapter.2 Linked list
 
     //2.1 remove duplicates
@@ -43,5 +43,41 @@ public Class ChapterTwo() {
             }
             n = n.next;
         }
+    }
+
+    //=======================================================
+    //2.2 find the k-th to last element
+
+    public static LinkedListNode kthToLast(LinkedListNode n, int k) {
+        // Runner implementation
+        if(k <= 0 || n == null) return null;
+        LinkedListNode runner = n;
+
+        // Let runner be k-1 elements away from the head
+        while(--k != 0) {
+            if (runner == null) return null;
+            runner = runner.next;
+        }
+
+        // Move n and runner simultaneously until runner hit the end
+        while (runner != null) {
+            n = n.next;
+            runner = runner.next;
+        }
+        return n;
+    }
+
+    //=======================================================
+    //2.3 delete a node given only access to that node
+
+    public static boolean deleteNode(LinkedListNode n) {
+        // Copy the data and pointer of the next node over
+        // Clever move
+        if (n == null || n.next == null) {
+            return false;
+        }
+        n.data = n.next.data;
+        n.next = n.next.next;
+        return true;
     }
 }

@@ -181,4 +181,85 @@ public class ChapterTwo {
 
         return head;
     }
+
+    //-------------------------------------------------------
+    public static LinkedListNode addLists(LinkedListNode l1, LinkedListNode l2, int carry) {
+        if (l1 == null && l2 == null && carry == 0) {
+            //We are done
+            return null;
+        }
+
+        LinkedListNode result = new LinkedListNode(carry, null);
+
+        int sum = carry;
+        if (l1 != null) {
+            sum += l1.data;
+        }
+        if (l2 != null) {
+            sum += l2.data;
+        }
+        
+        result.data = sum % 10;
+
+        if (l1 != null || l2 != null) {
+            LinkedListNode more = new LinkedListNode (
+                l1 == null ? null : l1.next,
+                l2 == null ? null : l2.next,
+                sum >= 0 ? 1 : 0);
+            result.next = more;
+        }
+
+        return result;
+    }
+
+    //-------------------------------------------------------
+    public class PartialSum {
+        public LinkdeListNode sum = null;
+        public int carry = 0;
+    }
+
+    LinkedListNode addlists(LinkedListNode l1, LinkedListNode l2) {
+        int len1 = getLength(l1);
+        int len2 = getLength(l2);
+        if (len1 < len2) {
+            l1 = padList(l1, len2 - len1);
+        } else {
+            l2 = padList(l2, len1 - len2);
+        }
+
+        PartialSum sum = addListsHelper(l1, l2);
+
+        if (sum.carry == 0) {
+            return sum.sum;
+        } else {
+            LinkedListNode result = new LinkedListNode(sum.carry, sum.sum);
+            return result;
+        }
+    }
+
+    PartialSum addListsHelper(LinkedListNode l1, LinkedListNode l2) {
+        if (l1 == null && l2 == null) {
+            return new PartialSum;
+        }
+
+        PartialSum sum = addListsHelper(l1.next, l2.next);
+        int val = sum.carry + l1.data + l2.data;
+        LinkedListNode curr_result = new LinkedListNode(value % 10, sum.sum);
+        sum.sum = curr_result;
+        sum.carry = value / 10;
+        return sum;
+    }
+
+    LinkedListNode padList(LinkedListNode l, int padding) {
+        LinkedListNode head = l;
+        for (int i = 0 ; i < padding ; i++) {
+            LinkedListNode tmp = new LinkedListNode (0, head);
+            head = tmp;
+        }
+        return head;
+    }
+
+    //=======================================================
+    //2.6 beginning of the loop
+
 }

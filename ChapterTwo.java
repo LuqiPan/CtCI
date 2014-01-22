@@ -129,4 +129,56 @@ public class ChapterTwo {
         // return the head
         return lessHead;
     }
+
+    //=======================================================
+    //2.5 Addition on linked list
+    
+    public static LinkedListNode addition( LinkedListNode n1, LinkedListNode n2) {
+        //nothing to do if there's at most one list
+        if (n1 == null || n2 == null) return null;
+
+        //some variables
+        int carry = 0;
+        LinkedListNode head = null;
+        LinkedListNode p = null;
+
+        //loop until one list is empty
+        while(n1 != null && n2 != null) {
+            //calculate the result
+            int sum = carry + n1.data + n2.data;
+            carry = sum >= 10 ? 1 : 0;
+            sum = sum % 10;
+
+            if (p == null) {
+                //The first element, record the head
+                head = new LinkedListNode(sum, null);
+                p = head;
+            } else {
+                //Move the pointer
+                p.next = new LinkedListNode(sum, null);
+                p = p.next;
+            }
+            n1 = n1.next;
+            n2 = n2.next;
+        }
+
+        if (n1 == null && n2 == null) {
+            //should deal with it FIRST
+            if (carry == 1) {
+                p.next = new LinkedListNode(1, null);
+            }
+            return head;
+        }
+        if (n1 == null) {
+            //no elements in n1 but some in n2
+            n2.data += carry;
+            p.next = n2;
+        } else {
+            //no elements in n2 but some in n1
+            n1.data += carry;
+            p.next = n1;
+        }
+
+        return head;
+    }
 }

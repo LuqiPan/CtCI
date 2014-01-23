@@ -261,5 +261,38 @@ public class ChapterTwo {
 
     //=======================================================
     //2.6 beginning of the loop
+    public static LinkedListNode findBeginning(LinkedListNode head) {
+        LinkedListNode runner = head;
+        LinkedListNode p = head;
+
+        //Find the collision point
+        while (runner != null && runner.next != null) {
+            p = p.next;
+            runner = runner.next.next;
+            if (p == runner) {
+                break;
+            }
+        }
+
+        //No meeting point, thus no loop
+        if (runner == null || runner.next == null) {
+            return null;
+        }
+
+        //Move p to head, then move both at the same pace,
+        //They'll meet at loop start
+        //Magic of math!!
+        p = head;
+        while (p != runner) {
+            p = p.next;
+            runner = runner.next;
+        }
+
+        //p or runner are both the start of loop
+        return p;
+    }
+
+    //=======================================================
+    //2.7
 
 }

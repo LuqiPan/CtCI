@@ -294,5 +294,32 @@ public class ChapterTwo {
 
     //=======================================================
     //2.7
+    public static boolean isPalindrome(LinkedListNode head) {
+        LinkedListNode slow = head;
+        LinkedListNode fast = head;
 
+        Stack<Integer> stack = new Stack<Integer>();
+
+        //runner approach, find the mid point
+        while (fast != null && fast.next != null) {
+            stack.push(slow.data);
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //odd length, this element will have no other element to match up
+        if (fast != null) {
+            stack.pop();
+        }
+
+        while (slow.next != null) {
+            //if they don't match up, it's not a palindrome
+            if (slow.next.data != stack.pop()) {
+                return false;
+            }
+            slow = slow.next;
+        }
+
+        return true;
+    }
 }

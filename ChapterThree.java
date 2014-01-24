@@ -64,6 +64,46 @@ public class ChapterThree {
     }
 
     //=======================================================
+    //2.3 set of stacks
+
+    public class SetOfStacks {
+        ArrayList<Stack> stacks;
+        int capacity;
+        public SetOfStacks(int c) {
+            capacity = c;
+            stacks = new ArrayList<Stack>();
+        }
+
+        public Stack getLastStack() {
+            if (!stacks.isEmpty()) {
+                return stacks.get(stacks.size() - 1);
+            } else {
+                return null;
+            }
+        }
+
+        public void push(int v) {
+            Stack last = getLastStack();
+            if (last != null && !last.isFull()) {
+                last.push(v);
+            } else {
+                Stack stack = new Stack(capacity);
+                stack.push(v);
+                stacks.add(stack);
+            }
+        }
+
+        public int pop() {
+            Stack last = getLastStack();
+            int v = last.pop();
+            if (last.size == 0) {
+                stacks.remove(stacks.size() - 1);
+            }
+            return v;
+        }
+    }
+
+    //=======================================================
 
     public static void main(String args[]) {
         System.out.println();

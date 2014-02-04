@@ -119,6 +119,38 @@ public class ChapterThree {
     }
 
     //=======================================================
+    //3.5 implement a queue using two stacks
+    public class MyQueue<T> {
+        Stack<T> stackNewest, stackOldest;
+        public MyQueue() {
+            stackNewest = new Stack<T>();
+            stackOldest = new Stack<T>();
+        }
+
+        public void add(T value) {
+            stackNewest.push(value);
+        }
+
+        private void shiftStacks() {
+            if (stackOldest.empty()) {
+                while (!stackNewest.empty()) {
+                    stackOldest.push(stackNewest.pop());
+                }
+            }
+        }
+
+        public T peek() {
+            shiftStacks();
+            return stackOldest.peek();
+        }
+
+        public T pop() {
+            shiftStacks();
+            return stackOldest.pop();
+        }
+    }
+
+    //=======================================================
 
     public static void main(String args[]) {
         test3_4();

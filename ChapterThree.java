@@ -64,48 +64,63 @@ public class ChapterThree {
     }
 
     //=======================================================
-    //2.3 set of stacks
+    //3.3 set of stacks
+    //see prob3_3.java
 
-    public class SetOfStacks {
-        ArrayList<Stack> stacks;
-        int capacity;
-        public SetOfStacks(int c) {
-            capacity = c;
-            stacks = new ArrayList<Stack>();
-        }
+    //=======================================================
+    //3.4 Hanoi
 
-        public Stack getLastStack() {
-            if (!stacks.isEmpty()) {
-                return stacks.get(stacks.size() - 1);
-            } else {
-                return null;
-            }
-        }
-
-        public void push(int v) {
-            Stack last = getLastStack();
-            if (last != null && !last.isFull()) {
-                last.push(v);
-            } else {
-                Stack stack = new Stack(capacity);
-                stack.push(v);
-                stacks.add(stack);
-            }
+    static class Tower {
+        private Stack<Integer> s = new Stack<Integer>();
+        public void push(int i) {
+            s.push(i);
         }
 
         public int pop() {
-            Stack last = getLastStack();
-            int v = last.pop();
-            if (last.size == 0) {
-                stacks.remove(stacks.size() - 1);
-            }
-            return v;
+            return s.pop();
         }
+    }
+
+    static class Hanoi {
+        private Tower[] towers;
+        private int n;
+        public Hanoi(int disks) {
+            towers = new Tower[3];
+            for(int i = 0 ; i < 3 ; i++) {
+                towers[i] = new Tower();
+            }
+            n = disks;
+            for(int i = disks-1 ; i >= 0 ; i--) {
+                towers[0].push(i);
+            }
+        }
+
+        public void moveTop(int origin, int dest) {
+            int disk = towers[origin].pop();
+            System.out.println("Move disk" + disk + " from T" + origin + " to T" + dest);
+            towers[dest].push(disk);
+        }
+
+        public void moveDisks(int n, int origin, int buffer, int dest) {
+            if (n == 1) {
+                moveTop(origin, dest);
+                return;
+            }
+            moveDisks(n-1, origin, dest, buffer);
+            moveTop(origin, dest);
+            moveDisks(n-1, buffer, origin, dest);
+        }
+    }
+
+    public static void test3_4() {
+        int disks = 5;
+        Hanoi myHanoi = new Hanoi(disks);
+        myHanoi.moveDisks(disks, 0, 1, 2);
     }
 
     //=======================================================
 
     public static void main(String args[]) {
-        System.out.println();
+        test3_4();
     }
 }
